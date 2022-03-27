@@ -25,9 +25,14 @@ usage() {
 }
 
 cleanup() {
-  k3d cluster delete --all
-  rm -f vars/*
-  rm -rf .terraform
+  local workspace=$(terraform workspace show)
+  local tfvars=vars/${workspace}.tfvars
+  terraform destroy --var-file=${tfvars} -auto-approve
+  # ${workspace#*-} is a non-greedy forwards trim (#*), it erases everything up do and including the first `-`
+  # ${workspace##*-} is a greedy forwards trim (##*), it erases everything up do and including the last `-`
+  # backwards trims work the same way, the syntax uses `%` instead of `#`
+  k3d cluster delete ${workspace#*-}
+  rm -f ${tfvars}
 }
 
 while getopts ":fh" opt; do
