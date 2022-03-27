@@ -1,14 +1,10 @@
 # This file contains provider configuration
 # Provider version and source info can be found in versions.tf
 
-provider "kubernetes" {
-  experiments {
-    manifest_resource = true
-  }
+provider "flux" {}
 
-  config_path    = var.kubernetes_config_path
-  config_context = var.kubernetes_config_context
-}
+# Credentials sourced from GITHUB_TOKEN and GITHUB_OWNER
+provider "github" {}
 
 provider "helm" {
   kubernetes {
@@ -16,3 +12,11 @@ provider "helm" {
     config_context = var.kubernetes_config_context
   }
 }
+
+provider "kubectl" {}
+
+provider "kubernetes" {
+  config_path    = var.kubernetes_config_path
+  config_context = var.kubernetes_config_context
+}
+
