@@ -35,6 +35,7 @@ usage() {
   printf "\nOptions:\n"
   format="  %-4s%-17s%-34s[Default: %s]\n"
   printf $format "-a" "<agent-count>" "set number of agent containers" $defaults[agent_count]
+  printf $format "-c" "" "create-only, do not run Terraform" "false"
   printf $format "-n" "<cluster-name>" "set cluster name" $defaults[cluster_name]
   printf $format "-p" "<http-port>" "port to expose HTTP on" $defaults[http_port]
   printf $format "-s" "<https-port>" "port to expose HTTPS on" $defaults[https_port]
@@ -85,9 +86,10 @@ provision_cluster() {
   help_argocd_pw
 }
 
-while getopts ":a:hn:p:s:v" opt; do
+while getopts ":a:chn:p:s:v" opt; do
   case  $opt in
     a  ) args[agent_count]=$OPTARG;;
+    c  ) args+=( [create_only]=true );;
     h  ) usage; exit;;
     n  ) args[cluster_name]=$OPTARG;;
     p  ) args[http_port]=$OPTARG;;
@@ -105,8 +107,9 @@ fi
 cluster_exists=$(k3d cluster list --output json | jq -r ".[] | select(.name==\"${args[cluster_name]}\") | .name")
 if [[ -z $cluster_exists ]]; then
   create_cluster
-  provision_cluster
-else
+fi
+
+if [ -z ${args[create_only]} ]; then
   provision_cluster
 fi
 
