@@ -12,7 +12,7 @@ provider "flux" {
 
   git = {
     url    = "ssh://git@github.com/${var.github_org}/${var.flux_github_repository}.git"
-    branch = "k3d-${var.cluster_name}"
+    branch = local.flux_branch
 
     ssh = {
       username    = "git"
