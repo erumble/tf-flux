@@ -1,13 +1,28 @@
 terraform {
   required_providers {
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.5"
+    flux = {
+      source  = "fluxcd/flux"
+      version = "~> 1.0"
     }
 
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.3"
+    github = {
+      source  = "integrations/github"
+      version = "~> 5.42"
+    }
+
+    k3d = {
+      source  = "pvotal-tech/k3d"
+      version = "0.0.7"
+    }
+
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.5"
+    }
+
+    tls = {
+      source = "hashicorp/tls"
+      version = "~> 4.0"
     }
   }
 }
