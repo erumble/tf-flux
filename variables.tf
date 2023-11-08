@@ -6,14 +6,14 @@
 
 variable "github_org" {
   description = "Name of the Github organization where Flux config is located."
-  type = string
-  default = "erumble"
+  type        = string
+  default     = "erumble"
 }
 
 variable "flux_github_repository" {
   description = "Name of repository containing Flux configuration."
-  type = string
-  default = "tf-k3s"
+  type        = string
+  default     = "tf-k3s"
 }
 
 # k8s cluster variables
