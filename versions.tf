@@ -2,28 +2,27 @@ terraform {
   required_providers {
     flux = {
       source  = "fluxcd/flux"
-      version = "~> 0.11"
+      version = "~> 1.0"
     }
 
     github = {
       source  = "integrations/github"
-      version = "~> 4.22"
+      version = "~> 5.42"
     }
 
-    helm = {
-      source  = "hashicorp/helm"
-      version = "~> 2.4"
+    k3d = {
+      source  = "pvotal-tech/k3d"
+      version = "0.0.7"
     }
 
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = "~> 1.13"
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.5"
     }
 
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.9"
+    tls = {
+      source = "hashicorp/tls"
+      version = "~> 4.0"
     }
   }
 }
-

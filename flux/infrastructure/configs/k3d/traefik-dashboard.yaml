@@ -1,0 +1,29 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-external-dashboard
+  namespace: kube-system
+spec:
+  entryPoints:
+  - web
+  routes:
+  - kind: Rule
+    match: "Host(`traefik.lvh.me`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))"
+    services:
+    - kind: TraefikService
+      name: api@internal
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik # The name must match the name of the Helm chart to modify
+  namespace: kube-system
+spec:
+  # Set the tag to 2.9.x since k3d installs an older helm chart that doesn't include the new traefik.io CRDs
+  # Once the chart version is >= 23.x the tag can be removed from this config (use the default version)
+  valuesContent: |-
+    image:
+      tag: "2.9.10"
+    additionalArguments:
+    - "--api.insecure=true"

@@ -1,22 +1,31 @@
 # This file contains provider configuration
 # Provider version and source info can be found in versions.tf
 
-provider "flux" {}
+provider "flux" {
+  # kubernetes = k3d_cluster.this.credentials[0]
+  kubernetes = {
+    host                   = k3d_cluster.this.credentials[0].host
+    client_certificate     = k3d_cluster.this.credentials[0].client_certificate
+    client_key             = k3d_cluster.this.credentials[0].client_key
+    cluster_ca_certificate = k3d_cluster.this.credentials[0].cluster_ca_certificate
+  }
 
-# Credentials sourced from GITHUB_TOKEN and GITHUB_OWNER
-provider "github" {}
-
-provider "helm" {
-  kubernetes {
-    config_path    = var.kubernetes_config_path
-    config_context = var.kubernetes_config_context
+  git = {
+    url = "ssh://git@github.com/${var.github_org}/${var.flux_github_repository}.git"
+    ssh = {
+      username    = "git"
+      private_key = tls_private_key.flux.private_key_pem
+    }
   }
 }
 
-provider "kubectl" {}
-
-provider "kubernetes" {
-  config_path    = var.kubernetes_config_path
-  config_context = var.kubernetes_config_context
+# Credentials sourced from GITHUB_TOKEN
+provider "github" {
+  owner = var.github_org
 }
 
+provider "k3d" {}
+
+provider "random" {}
+
+provider "tls" {}

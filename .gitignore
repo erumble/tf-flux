@@ -1,4 +1,5 @@
 .terraform
 vars/**.tfvars
 **/.env
-
+files/
+.sourceignore
