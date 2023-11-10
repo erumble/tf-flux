@@ -25,10 +25,3 @@ spec:
         name: weave-gitops
         namespace: flux-system
       interval: 12h
-  values:
-    WEAVE_GITOPS_FEATURE_TELEMETRY: "true"
-    adminUser:
-      create: true
-      # pw hash for `I am here.`
-      passwordHash: $2a$10$e/X/F0rm65CxqhjDwscBUO83ReL0XNUItEEoTc56xMhcYTYQhFHcy
-      username: admin
