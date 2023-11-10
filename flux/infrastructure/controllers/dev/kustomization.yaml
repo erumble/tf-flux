@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../base/cert-manager
   - ../base/weave-gitops
+  - ../base/metrics-server
 patches:
   - path: weave-gitops-values.yaml
     target:
