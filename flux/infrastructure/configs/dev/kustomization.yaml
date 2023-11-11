@@ -5,4 +5,4 @@ commonLabels:
   toolkit.fluxcd.io/tenant: sre-team
 resources: # 👋 Start adding the resources you want to sync here
 - traefik-dashboard.yaml
-- k8s-dashboard-cert.yaml
+- ca-issuer.yaml
