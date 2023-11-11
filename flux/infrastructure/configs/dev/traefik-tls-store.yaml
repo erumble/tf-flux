@@ -1,0 +1,28 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik-default
+  namespace: default
+spec:
+  secretName: traefik-default-cert
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  # usages:
+  #   - server auth
+  #   - client auth
+  dnsNames:
+    - lvh.me
+    - "*.lvh.me"
+  issuerRef:
+    kind: ClusterIssuer
+    name: ca-issuer
+---
+apiVersion: traefik.io/v1alpha1
+kind: TLSStore
+metadata:
+  name: default
+  namespace: default
+spec:
+  defaultCertificate:
+    secretName: traefik-default-cert
