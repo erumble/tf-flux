@@ -1,11 +1,12 @@
 # Use Terraform and K3d to manage a K3s Cluster
 
 This will setup a k3d kubernetes cluster on your local machine and setup the following things.
-* [Traefik](https://doc.traefik.io/traefik/) for ingress on traefik.lvh.me:8080
+* [Traefik](https://doc.traefik.io/traefik/) for ingress on [traefik.lvh.me:8080](http://traefik.lvh.me:8080)
 * [Flux](https://fluxcd.io/) for gitops
-* [Weave Gitops](https://docs.gitops.weave.works/docs/intro-weave-gitops/) to visualize flux on flux.lvh.me:8080
+* [Weave Gitops](https://docs.gitops.weave.works/docs/intro-weave-gitops/) to visualize flux on [flux.lvh.me:8080](http://flux.lvh.me:8080)
 * [Linkerd](https://linkerd.io/) for a service mesh
 * [Cert Manager](https://cert-manager.io/docs/) for good old SSL and mTLS
+* [Podinfo](https://github.com/stefanprodan/podinfo) to test that everything is working on [podinfo.lvh.me:8080](http://podinfo.lvh.me:8080)
 
 ## Prerequisites
 * [K3d](https://k3d.io)
