@@ -6,15 +6,9 @@ resources:
   - ../base/cert-manager
   - ../base/weave-gitops
   # - ../base/metrics-server # This is installed in k3d by default
-  - ../base/k8s-dashboard
 patches:
   - path: weave-gitops-values.yaml
     target:
       kind: HelmRelease
       name: weave-gitops
       namespace: flux-system
-  - path: k8s-dashboard-values.yaml
-    target:
-      kind: HelmRelease
-      name: kubernetes-dashboard
-      namespace: kubernetes-dashboard

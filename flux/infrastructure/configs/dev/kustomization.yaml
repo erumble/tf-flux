@@ -6,4 +6,3 @@ commonLabels:
 resources: # 👋 Start adding the resources you want to sync here
 - ca-issuer.yaml
 - traefik-dashboard.yaml
-# - traefik-tls-store.yaml
