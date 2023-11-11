@@ -6,8 +6,11 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   values:
+    extraArgs:
+      - "--enable-insecure-login"
+      - "--enable-skip-login"
     ingress:
       enabled: true
-      ingressClassName: traefik
+      className: traefik
       hosts:
         - k8s.lvh.me
