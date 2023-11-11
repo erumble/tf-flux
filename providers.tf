@@ -2,7 +2,6 @@
 # Provider version and source info can be found in versions.tf
 
 provider "flux" {
-  # kubernetes = k3d_cluster.this.credentials[0]
   kubernetes = {
     host                   = k3d_cluster.this.credentials[0].host
     client_certificate     = k3d_cluster.this.credentials[0].client_certificate
@@ -21,7 +20,7 @@ provider "flux" {
   }
 }
 
-# Credentials sourced from GITHUB_TOKEN
+# Credentials sourced from logging in with the Github CLI
 provider "github" {
   owner = var.github_org
 }

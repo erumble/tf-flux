@@ -1,9 +1,3 @@
-# variable "github_token" {
-#   description = "Personal Access Token with `repo` scope, used for accessing Github resources."
-#   type      = string
-#   sensitive = true
-# }
-
 variable "github_org" {
   description = "Name of the Github organization where Flux config is located."
   type        = string
@@ -13,7 +7,7 @@ variable "github_org" {
 variable "flux_github_repository" {
   description = "Name of repository containing Flux configuration."
   type        = string
-  default     = "tf-k3s"
+  default     = "tf-k3d"
 }
 
 # k8s cluster variables
