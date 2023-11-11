@@ -12,5 +12,11 @@ spec:
     ingress:
       enabled: true
       className: traefik
+      annotations:
+        cert-manager.io/issuer: k8s-dashboard-issuer
       hosts:
         - k8s.lvh.me
+      tls:
+        - secretName: kubernetes-dashboard-tls
+          hosts:
+            - k8s.lvh.me

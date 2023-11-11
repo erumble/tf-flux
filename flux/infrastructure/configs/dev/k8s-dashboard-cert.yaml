@@ -1,0 +1,8 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: k8s-dashboard-issuer
+  namespace: kubernetes-dashboard
+spec:
+  selfSigned: {}
