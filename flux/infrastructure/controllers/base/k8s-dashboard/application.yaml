@@ -23,7 +23,7 @@ spec:
   chart:
     spec:
       chart: kubernetes-dashboard
-      version: "2.x"
+      version: "6.x"
       sourceRef:
         kind: HelmRepository
         name: kubernetes-dashboard
