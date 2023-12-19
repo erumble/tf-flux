@@ -25,6 +25,3 @@ spec:
         name: weave-gitops
         namespace: flux-system
       interval: 48h
-  dependsOn:
-    - name: traefik
-      namespace: traefik

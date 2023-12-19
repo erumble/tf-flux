@@ -32,6 +32,3 @@ spec:
         name: traefik
         namespace: traefik
       interval: 48h
-  dependsOn:
-    - name: linkerd-control-plane
-      namespace: linkerd

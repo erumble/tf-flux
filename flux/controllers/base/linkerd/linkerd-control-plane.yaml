@@ -33,8 +33,6 @@ spec:
       externalSecret: true
       injectCaFrom: linkerd/linkerd-policy-validator
   dependsOn:
-    - name: cert-manager
-      namespace: cert-manager
     - name: linkerd-crds
       namespace: linkerd
 
