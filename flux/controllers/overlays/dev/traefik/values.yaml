@@ -21,3 +21,17 @@ spec:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
         effect: NoSchedule
+    extraObjects:
+      - apiVersion: traefik.containo.us/v1alpha1
+        kind: IngressRoute
+        metadata:
+          name: traefik-external-dashboard
+        spec:
+          entryPoints:
+            - web
+          routes:
+            - kind: Rule
+              match: "Host(`traefik.localhost`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))"
+              services:
+                - kind: TraefikService
+                  name: api@internal
