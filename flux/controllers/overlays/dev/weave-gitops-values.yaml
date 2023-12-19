@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: weave-gitops
+  namespace: flux-system
+spec:
+  values:
+    WEAVE_GITOPS_FEATURE_TELEMETRY: "true"
+    adminUser:
+      create: true
+      # pw hash for `I am here.`
+      passwordHash: $2a$10$e/X/F0rm65CxqhjDwscBUO83ReL0XNUItEEoTc56xMhcYTYQhFHcy
+      username: admin
+    ingress:
+      enabled: true
+      className: traefik
+      hosts:
+        - host: flux.localhost
+          paths:
+            - path: /
+              pathType: Prefix

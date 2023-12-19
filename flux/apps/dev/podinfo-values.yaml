@@ -11,11 +11,11 @@ spec:
       enabled: true
       className: traefik
       hosts:
-        - host: podinfo.lvh.me
+        - host: podinfo.localhost
           paths:
             - path: /
               pathType: Prefix
       tls:
         - secretName: podinfo-tls
           hosts:
-            - podinfo.lvh.me
+            - podinfo.localhost
