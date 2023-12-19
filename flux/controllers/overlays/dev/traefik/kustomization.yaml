@@ -5,7 +5,7 @@ commonLabels:
   toolkit.fluxcd.io/tenant: sre-team
 resources:
   - ../../../base/traefik
-  - ./ingressroute.yaml
+  # - ./ingressroute.yaml
 patches:
   - path: values.yaml
     target:

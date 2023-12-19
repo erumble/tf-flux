@@ -4,7 +4,7 @@ kind: Kustomization
 commonLabels:
   toolkit.fluxcd.io/tenant: sre-team
 resources:
-  - ../../base/weave-gitops
+  - ../../../base/weave-gitops
 patches:
   - path: values.yaml
     target:
