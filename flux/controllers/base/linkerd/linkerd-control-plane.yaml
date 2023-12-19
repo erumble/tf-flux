@@ -35,6 +35,8 @@ spec:
   dependsOn:
     - name: linkerd-crds
       namespace: linkerd
+    - name: linkerd-certs
+      namespace: linkerd
 
 # For more information on using cert-manager to automatically rotate tls credentials,
 # See the following links:
