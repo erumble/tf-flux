@@ -1,5 +1,5 @@
 locals {
-  flux_branch = "k3d-${var.cluster_name}"
+  flux_branch = "flux-${var.cluster_name}"
 }
 
 resource "tls_private_key" "flux" {

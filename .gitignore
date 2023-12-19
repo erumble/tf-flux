@@ -1,5 +1,5 @@
 .terraform
 vars/**.tfvars
 **/.env
-files/
+tmp/
 .sourceignore

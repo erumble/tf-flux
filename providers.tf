@@ -3,10 +3,10 @@
 
 provider "flux" {
   kubernetes = {
-    host                   = k3d_cluster.this.credentials[0].host
-    client_certificate     = k3d_cluster.this.credentials[0].client_certificate
-    client_key             = k3d_cluster.this.credentials[0].client_key
-    cluster_ca_certificate = k3d_cluster.this.credentials[0].cluster_ca_certificate
+    host                   = kind_cluster.this.endpoint
+    client_certificate     = kind_cluster.this.client_certificate
+    client_key             = kind_cluster.this.client_key
+    cluster_ca_certificate = kind_cluster.this.cluster_ca_certificate
   }
 
   git = {
@@ -25,8 +25,6 @@ provider "github" {
   owner = var.github_org
 }
 
-provider "k3d" {}
-
-provider "random" {}
+provider "kind" {}
 
 provider "tls" {}
