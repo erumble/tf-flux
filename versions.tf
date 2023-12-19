@@ -10,14 +10,9 @@ terraform {
       version = "~> 5.42"
     }
 
-    k3d = {
-      source  = "pvotal-tech/k3d"
-      version = "0.0.7"
-    }
-
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.5"
+    kind = {
+      source  = "tehcyx/kind"
+      version = "~> 0.2"
     }
 
     tls = {

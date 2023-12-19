@@ -23,8 +23,8 @@ variable "agent_count" {
   default     = 3
 }
 
-variable "server_count" {
-  description = "The number of control plane nodes to run in the cluster."
-  type        = number
-  default     = 1
+variable "kube_config_path" {
+  description = "Absolute path to your kube config file."
+  type        = string
+  default     = "~/.kube/config"
 }

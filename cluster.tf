@@ -1,44 +1,38 @@
-resource "random_id" "machine_id" {
-  byte_length = 16
-}
+resource "kind_cluster" "this" {
+  name            = var.cluster_name
+  kubeconfig_path = abspath(pathexpand(var.kube_config_path))
+  wait_for_ready  = true
 
-resource "local_file" "machine_id" {
-  filename        = "${path.module}/files/machine-id"
-  content         = "${random_id.machine_id.hex}\n"
-  file_permission = "0644"
-}
+  kind_config {
+    kind        = "Cluster"
+    api_version = "kind.x-k8s.io/v1alpha4"
 
-resource "k3d_cluster" "this" {
-  name = var.cluster_name
+    node {
+      role = "control-plane"
 
-  agents  = var.agent_count
-  servers = var.server_count
+      labels = {
+        ingress-controller : "true"
+      }
 
-  kubeconfig {
-    switch_current_context    = true
-    update_default_kubeconfig = true
-  }
+      extra_port_mappings {
+        container_port = 32080
+        host_port      = 80
+        listen_address = "127.0.0.1"
+      }
 
-  port {
-    host_port      = 8080
-    container_port = 80
+      extra_port_mappings {
+        container_port = 32443
+        host_port      = 443
+        listen_address = "127.0.0.1"
+      }
+    }
 
-    node_filters = [
-      "loadbalancer",
-    ]
-  }
+    dynamic "node" {
+      for_each = range(var.agent_count)
 
-  port {
-    host_port      = 8443
-    container_port = 443
-
-    node_filters = [
-      "loadbalancer",
-    ]
-  }
-
-  volume {
-    source      = abspath(local_file.machine_id.filename)
-    destination = "/etc/machine-id"
+      content {
+        role = "worker"
+      }
+    }
   }
 }
