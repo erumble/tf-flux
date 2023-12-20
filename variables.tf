@@ -7,7 +7,7 @@ variable "github_org" {
 variable "flux_github_repository" {
   description = "Name of repository containing Flux configuration."
   type        = string
-  default     = "tf-k3d"
+  default     = "tf-flux"
 }
 
 # k8s cluster variables
