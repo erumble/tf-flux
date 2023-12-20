@@ -15,18 +15,22 @@ output:
   file: "README.md"
   mode: replace
   template: |-
-    # Use Terraform and K3d to manage a K3s Cluster
+    # Use Terraform and Flux to manage a K8s Cluster
 
-    This will setup a k3d kubernetes cluster on your local machine and setup the following things.
-    * [Traefik](https://doc.traefik.io/traefik/) for ingress on [traefik.lvh.me:8080](http://traefik.lvh.me:8080)
+    This will setup a k8s kubernetes cluster on your local machine and setup the following things.
+    * [Traefik](https://doc.traefik.io/traefik/) for ingress on [traefik.localhost](http://traefik.localhost)
     * [Flux](https://fluxcd.io/) for gitops
-    * [Weave Gitops](https://docs.gitops.weave.works/docs/intro-weave-gitops/) to visualize flux on [flux.lvh.me:8080](http://flux.lvh.me:8080)
+    * [Weave Gitops](https://docs.gitops.weave.works/docs/intro-weave-gitops/) to visualize flux on [flux.localhost](http://flux.localhost)
     * [Linkerd](https://linkerd.io/) for a service mesh
     * [Cert Manager](https://cert-manager.io/docs/) for good old SSL and mTLS
-    * [Podinfo](https://github.com/stefanprodan/podinfo) to test that everything is working on [podinfo.lvh.me:8080](http://podinfo.lvh.me:8080)
+    * [Podinfo](https://github.com/stefanprodan/podinfo) to test that everything is working on [podinfo.localhost](http://podinfo.localhost)
 
     ## Prerequisites
-    * [K3d](https://k3d.io)
+    * Docker (Just be sure it works with Kind)
+        * [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+        * [Podman](https://podman.io/docs/installation)
+        * [Colima](https://github.com/abiosoft/colima)
+    * [Kind](https://kind.sigs.k8s.io/)
     * [Terraform](https://www.terraform.io/docs/index.html)
 
     This Terraform project uses the Github provider. In order to authenticate to Github, you will need to do 1 of the following:
