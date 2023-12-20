@@ -31,6 +31,7 @@ spec:
     name: flux-system
   path: ./flux/controllers/overlays/dev/linkerd
   prune: true
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -48,6 +49,7 @@ spec:
     name: flux-system
   path: ./flux/controllers/overlays/dev/traefik
   prune: true
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
