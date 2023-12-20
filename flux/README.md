@@ -20,24 +20,23 @@ flux
 ├── clusters
 │   └── dev
 │       ├── apps.yaml
-│       └── infra.yaml
-└── infrastructure
-    ├── configs
-    │   └── dev
-    │       ├── ca-issuer.yaml
-    │       ├── kustomization.yaml
-    │       └── traefik-dashboard.yaml
-    └── controllers
-        ├── base
-        │   ├── cert-manager
-        │   │   ├── application.yaml
-        │   │   └── kustomization.yaml
-        │   └── weave-gitops
-        │       ├── application.yaml
-        │       └── kustomization.yaml
+│       └── controllers.yaml
+└── controllers
+    ├── base
+    │   ├── cert-manager
+    │   │   ├── application.yaml
+    │   │   └── kustomization.yaml
+    │   ├── linkerd
+    │   ├── metrics-server
+    │   ├── traefik
+    │   └── weave-gitops
+    └── overlays
         └── dev
-            ├── kustomization.yaml
-            └── weave-gitops-values.yaml
+            ├── cert-manager
+            │   └── kustomization.yaml
+            ├── linkerd
+            ├── traefik
+            └── weave-gitops
 ```
 
 ### The Top Level Directories
@@ -70,42 +69,37 @@ Cluster specific application configuration is placed in the `flux/apps/<cluster-
 flux/clusters
 └── dev
     ├── apps.yaml
-    └── infra.yaml
+    └── controllers.yaml
 ```
 
-`apps.yaml` and `infra.yaml` are entrypoints for Flux to install things listed in the `apps` and `infrastructure` directories. They establish a dependency order to install `infrastructure/controllers`, then `infrastructure/configs`, and finally `apps` for the respective clusters.
+`apps.yaml` and `controllers.yaml` are entrypoints for Flux to install things listed in the `apps` and `controllers` directories. They establish a dependency order to install `controllers`, then `apps` for the respective clusters.
 
 ---
 
-*infrastructure* - This directory should contain cluster applications/operators/controllers as well as configuration of resources (CRDs) created by the controllers.
+*controllers* - This directory should contain cluster applications/operators/controllers as well as configuration of resources (CRDs) created by the controllers.
 
 ```
-flux/infrastructure
-├── configs
-│   └── dev
-│       ├── ca-issuer.yaml
-│       ├── kustomization.yaml
-│       └── traefik-dashboard.yaml
-└── controllers
-    ├── base
-    │   ├── cert-manager
-    │   │   ├── application.yaml
-    │   │   └── kustomization.yaml
-    │   ├── metrics-server
-    │   │   ├── application.yaml
-    │   │   └── kustomization.yaml
-    │   └── weave-gitops
-    │       ├── application.yaml
-    │       └── kustomization.yaml
+flux/controllers
+├── base
+│   ├── cert-manager
+│   │   ├── application.yaml
+│   │   └── kustomization.yaml
+│   ├── linkerd
+│   │   └── ...
+│   └── ...
+└── overlays
     └── dev
-        ├── kustomization.yaml
-        └── weave-gitops-values.yaml
+        ├── cert-manager
+        │   └── kustomization.yaml
+        ├── linkerd
+        │   └── ...
+        └── ...
 ```
 
-This directory is split into two parts so that Flux can have a dependency order. Essentially, anything in the `controllers` directory should install operators/controllers and their respective CRDs, and the things in `configs` should instantiate those CRDs to configure the cluster.
+This directory is split into two parts so that Flux can have a dependency order, and each cluster controlled by this repo can have specific configuration.
 
-The `controllers` directory is laid out exactly the same as the `flux/apps` directory, and should be treated the same way. Except these are usually infrastructure related applications.
+The `base` directory is laid out exactly the same as the `flux/apps/base` directory, and should be treated the same way. Except these are usually infrastructure related applications.
 
-The `configs` directory is for instantiating CRDs defined by the applications in the `controllers` directory. An example of this is using configs to create a CA Issuer for self signed certificates managed by Cert Manager. The files in this directory will also be cluster specific, similar to all of the other `<dir>/<cluster-name>` directories.
+The `overlays` directory is for instantiating applications defined in the `base` directory for a specific cluster. This is where cluster specific Helm values will be kept for the applications in `controllers/base`
 
 ---

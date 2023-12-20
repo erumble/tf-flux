@@ -16,7 +16,7 @@ spec:
       enabled: true
       className: traefik
       hosts:
-        - host: flux.lvh.me
+        - host: flux.localhost
           paths:
             - path: /
               pathType: Prefix
