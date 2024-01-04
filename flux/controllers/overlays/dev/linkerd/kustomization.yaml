@@ -5,3 +5,10 @@ commonLabels:
   toolkit.fluxcd.io/tenant: sre-team
 resources:
   - ../../../base/linkerd
+  - ./linkerd-viz.ingress.yaml
+patches:
+  - path: linkerd-viz.values.yaml
+    target:
+      kind: HelmRelease
+      name: linkerd-viz
+      namespace: linkerd-viz
