@@ -6,8 +6,8 @@ metadata:
 spec:
   values:
     ingress:
-      annotations:
-        cert-manager.io/cluster-issuer: ca-issuer
+      # annotations:
+      #   cert-manager.io/cluster-issuer: ca-issuer
       enabled: true
       className: traefik
       hosts:
@@ -15,7 +15,7 @@ spec:
           paths:
             - path: /
               pathType: Prefix
-      tls:
-        - secretName: podinfo-tls
-          hosts:
-            - podinfo.localhost
+      # tls:
+      #   - secretName: podinfo-tls
+      #     hosts:
+      #       - podinfo.localhost

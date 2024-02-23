@@ -3,6 +3,10 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: podinfo
+  labels:
+    toolkit.fluxcd.io/tenant: app-team
+  annotations:
+    linkerd.io/inject: enabled
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -23,12 +27,11 @@ spec:
   chart:
     spec:
       chart: podinfo
-      version: "*"
       sourceRef:
         kind: HelmRepository
         name: podinfo
         namespace: podinfo
-      interval: 12h
+      interval: 48h
   install:
     remediation:
       retries: 3
