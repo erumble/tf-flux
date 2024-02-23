@@ -17,7 +17,7 @@ resource "github_repository_deploy_key" "flux" {
 resource "github_branch" "flux" {
   repository    = var.flux_github_repository
   branch        = local.flux_branch
-  source_branch = "dev"
+  source_branch = var.flux_source_branch
 }
 
 resource "flux_bootstrap_git" "this" {

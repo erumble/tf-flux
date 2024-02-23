@@ -10,6 +10,12 @@ variable "flux_github_repository" {
   default     = "tf-flux"
 }
 
+variable "flux_source_branch" {
+  description = "Source branch to create flux branch from."
+  type        = string
+  default     = "main"
+}
+
 # k8s cluster variables
 variable "cluster_name" {
   description = "The name of the cluster to create."
