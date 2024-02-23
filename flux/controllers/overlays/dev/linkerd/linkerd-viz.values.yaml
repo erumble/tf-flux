@@ -1,0 +1,10 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: linkerd-viz
+  namespace: linkerd-viz
+spec:
+  values:
+    dashboard:
+      enforcedHostRegexp: "^(linkerd.localhost|localhost:.*)$"

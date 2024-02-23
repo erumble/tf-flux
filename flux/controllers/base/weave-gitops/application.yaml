@@ -4,6 +4,8 @@ kind: HelmRepository
 metadata:
   name: weave-gitops
   namespace: flux-system
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
 spec:
   interval: 24h
   type: oci
@@ -14,6 +16,8 @@ kind: HelmRelease
 metadata:
   name: weave-gitops
   namespace: flux-system
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
 spec:
   interval: 60m
   chart:

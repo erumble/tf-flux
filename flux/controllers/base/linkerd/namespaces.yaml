@@ -11,13 +11,23 @@ metadata:
     linkerd.io/control-plane-ns: linkerd
     linkerd.io/is-control-plane: "true"
     toolkit.fluxcd.io/tenant: sre-team
-# ---
-# apiVersion: v1
-# kind: Namespace
-# metadata:
-#   name: linkerd-viz
-#   annotations:
-#     kustomize.toolkit.fluxcd.io/ssa: merge
-#   labels:
-#     linkerd.io/extension: viz
-#     toolkit.fluxcd.io/tenant: sre-team
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: linkerd-viz
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: merge
+  labels:
+    linkerd.io/extension: viz
+    toolkit.fluxcd.io/tenant: sre-team
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: linkerd-jaeger
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: merge
+  labels:
+    linkerd.io/extension: jaeger
+    toolkit.fluxcd.io/tenant: sre-team
