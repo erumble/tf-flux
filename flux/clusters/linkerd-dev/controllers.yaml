@@ -13,7 +13,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./flux/controllers/overlays/dev/cert-manager
+  path: ./flux/controllers/overlays/linkerd-dev/cert-manager
   prune: true
   wait: true
 ---
@@ -33,7 +33,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./flux/controllers/overlays/dev/linkerd
+  path: ./flux/controllers/overlays/linkerd-dev/linkerd
   prune: true
   wait: true
 ---
@@ -53,7 +53,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./flux/controllers/overlays/dev/traefik
+  path: ./flux/controllers/overlays/linkerd-dev/traefik
   prune: true
   wait: true
 ---
@@ -73,5 +73,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./flux/controllers/overlays/dev/weave-gitops
+  path: ./flux/controllers/overlays/linkerd-dev/weave-gitops
   prune: true
