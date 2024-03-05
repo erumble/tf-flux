@@ -1,5 +1,5 @@
 locals {
-  flux_branch = "flux-${var.cluster_name}"
+  flux_branch = "flux-${terraform.workspace}"
 }
 
 resource "tls_private_key" "flux" {
@@ -21,7 +21,7 @@ resource "github_branch" "flux" {
 }
 
 resource "flux_bootstrap_git" "this" {
-  path = "flux/clusters/${var.cluster_name}"
+  path = "flux/clusters/${terraform.workspace}"
 
   depends_on = [
     github_branch.flux,
