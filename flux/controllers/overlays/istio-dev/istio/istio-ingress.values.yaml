@@ -25,6 +25,10 @@ spec:
           nodePort: 32443
     nodeSelector:
       ingress-controller: "true"
+    tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
     autoscaling:
       enabled: false
     replicaCount: 1
