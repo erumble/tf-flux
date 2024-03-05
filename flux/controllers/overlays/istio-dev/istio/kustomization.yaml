@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  toolkit.fluxcd.io/tenant: sre-team
+resources:
+  - ../../../base/istio
+patches:
+  - path: istio-ingress.values.yaml
+    target:
+      kind: HelmRelease
+      name: istio-ingress
+      namespace: istio-ingress

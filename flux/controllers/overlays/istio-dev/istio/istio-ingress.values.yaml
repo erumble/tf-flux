@@ -1,0 +1,30 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: istio-ingress
+  namespace: istio-ingress
+spec:
+  values:
+    service:
+      type: NodePort
+      ports:
+        - name: status-port
+          port: 15021
+          protocol: TCP
+          targetPort: 15021
+        - name: http2
+          port: 80
+          protocol: TCP
+          targetPort: 80
+          nodePort: 80
+        - name: https
+          port: 443
+          protocol: TCP
+          targetPort: 443
+          nodePort: 443
+    nodeSelector:
+      ingress-controller: "true"
+    autoscaling:
+      enabled: false
+    replicaCount: 1
