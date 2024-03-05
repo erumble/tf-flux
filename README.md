@@ -15,20 +15,28 @@ This will setup a k8s kubernetes cluster on your local machine and setup the fol
     * [Colima](https://github.com/abiosoft/colima)
 * [Kind](https://kind.sigs.k8s.io/)
 * [Terraform](https://www.terraform.io/docs/index.html)
+* (optional) [Taskfile](https://taskfile.dev/installation/)
 
 This Terraform project uses the Github provider. In order to authenticate to Github, you will need to do 1 of the following:
 * Install the [Github CLI](https://cli.github.com/) and authenticate through that
 * Create a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with the `repo` scope, and set the `GITHUB_TOKEN` env var to your PAT.
 
 ## Usage
-Setup
+### Setup
+This configuration will create a cluster named after the selected Terraform workspace.</br>
+It will also create a branch in your github repository named `flux-${terraform.workspace}`,</br>
+and configure this branch as the source of truth for the Flux instance in the cluster.</br>
+
+If a directory `flux/clusters/${terraform.workspace} doesn't exist, an empty Flux configuration will be created.</br>
+
 ```
-terraform apply
+task ws -- select -or-create linkerd
+task apply
 ```
 
-Cleanup
+### Cleanup
 ```
-terraform destroy
+task destroy
 ```
 
 See the [Flux README](flux/README.md) for more information on how flux works, and how the directory structure is set up.
@@ -46,10 +54,10 @@ See the [Flux README](flux/README.md) for more information on how flux works, an
 
 | Name | Version |
 |------|---------|
-| <a name="provider_flux"></a> [flux](#provider\_flux) | 1.1.2 |
-| <a name="provider_github"></a> [github](#provider\_github) | 5.42.0 |
-| <a name="provider_kind"></a> [kind](#provider\_kind) | 0.2.1 |
-| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.4 |
+| <a name="provider_flux"></a> [flux](#provider\_flux) | 1.2.3 |
+| <a name="provider_github"></a> [github](#provider\_github) | 5.45.0 |
+| <a name="provider_kind"></a> [kind](#provider\_kind) | 0.4.0 |
+| <a name="provider_tls"></a> [tls](#provider\_tls) | 4.0.5 |
 
 ## Modules
 
@@ -70,8 +78,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_agent_count"></a> [agent\_count](#input\_agent\_count) | The number of worker nodes to run in the cluster. | `number` | `3` | no |
-| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the cluster to create. | `string` | `"dev"` | no |
+| <a name="input_control_plane_port_mappings"></a> [control\_plane\_port\_mappings](#input\_control\_plane\_port\_mappings) | List of extra port mappings to expose on the control plane. Useful for setting up ingress gateways. | <pre>list(object({<br>    container_port = number<br>    host_port      = number<br>    listen_address = optional(string, "127.0.0.1")<br>    protocol       = optional(string, "TCP")<br>  }))</pre> | `[]` | no |
 | <a name="input_flux_github_repository"></a> [flux\_github\_repository](#input\_flux\_github\_repository) | Name of repository containing Flux configuration. | `string` | `"tf-flux"` | no |
+| <a name="input_flux_source_branch"></a> [flux\_source\_branch](#input\_flux\_source\_branch) | Source branch to create flux branch from. | `string` | `"main"` | no |
 | <a name="input_github_org"></a> [github\_org](#input\_github\_org) | Name of the Github organization where Flux config is located. | `string` | `"erumble"` | no |
 | <a name="input_kube_config_path"></a> [kube\_config\_path](#input\_kube\_config\_path) | Absolute path to your kube config file. | `string` | `"~/.kube/config"` | no |
 

@@ -1,5 +1,5 @@
 resource "kind_cluster" "this" {
-  name            = var.cluster_name
+  name            = terraform.workspace
   kubeconfig_path = abspath(pathexpand(var.kube_config_path))
   wait_for_ready  = true
 
@@ -11,19 +11,18 @@ resource "kind_cluster" "this" {
       role = "control-plane"
 
       labels = {
-        ingress-controller : "true"
+        ingress-controller = "true"
       }
 
-      extra_port_mappings {
-        container_port = 32080
-        host_port      = 80
-        listen_address = "127.0.0.1"
-      }
+      dynamic "extra_port_mappings" {
+        for_each = { for epm in var.control_plane_port_mappings : "${epm.host_port}-${epm.container_port}" => epm }
 
-      extra_port_mappings {
-        container_port = 32443
-        host_port      = 443
-        listen_address = "127.0.0.1"
+        content {
+          container_port = extra_port_mappings.value.container_port
+          host_port      = extra_port_mappings.value.host_port
+          listen_address = extra_port_mappings.value.listen_address
+          protocol       = extra_port_mappings.value.protocol
+        }
       }
     }
 

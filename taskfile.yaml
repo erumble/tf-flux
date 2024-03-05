@@ -1,0 +1,56 @@
+version: '3'
+
+tasks:
+  default:
+    desc: Display list of tasks
+    aliases:
+      - list
+    cmds:
+      - task --list-all
+
+  docs:
+    desk: Generate README.md
+    cmds:
+      - terraform-docs .
+
+  terraform:
+    internal: true
+    vars:
+      WORKSPACE:
+        sh: terraform workspace show
+    cmds:
+      - "# Running commands against workspace: {{.WORKSPACE}}"
+      - terraform {{.COMMAND}} -var-file=vars/{{.WORKSPACE}}.tfvars
+    requires: 
+      vars: [COMMAND]
+
+  apply:
+    desc: Runs terraform apply against the selected workspace
+    cmds:
+      - task: terraform
+        vars:
+          COMMAND: apply
+    silent: true
+
+  plan:
+    desc: Runs terraform plan against the selected workspace
+    cmds:
+      - task: terraform
+        vars:
+          COMMAND: plan
+    silent: true
+
+  destroy:
+    desc: Runs terraform destroy against the selected workspace
+    cmds:
+      - task: terraform
+        vars:
+          COMMAND: destroy
+    silent: true
+
+  ws:
+    desc: Wrapper for terraform workspace command. Pass commands/args after `--`.
+    vars:
+      CLI_ARGS: '{{default "-help" .CLI_ARGS}}'
+    cmds:
+      - terraform workspace {{.CLI_ARGS}}

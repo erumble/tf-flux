@@ -14,5 +14,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./flux/apps/overlays/dev
+  path: ./flux/apps/overlays/linkerd-dev
   prune: true
