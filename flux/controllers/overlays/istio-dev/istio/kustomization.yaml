@@ -11,3 +11,8 @@ patches:
       kind: HelmRelease
       name: istio-ingress
       namespace: istio-ingress
+  - path: kiali.values.yaml
+    target:
+      kind: HelmRelease
+      name: kiali-server
+      namespace: istio-system
