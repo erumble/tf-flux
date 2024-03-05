@@ -17,12 +17,6 @@ variable "flux_source_branch" {
 }
 
 # k8s cluster variables
-variable "cluster_name" {
-  description = "The name of the cluster to create."
-  type        = string
-  default     = "dev"
-}
-
 variable "agent_count" {
   description = "The number of worker nodes to run in the cluster."
   type        = number

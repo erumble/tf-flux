@@ -1,5 +1,5 @@
 resource "kind_cluster" "this" {
-  name            = var.cluster_name
+  name            = terraform.workspace
   kubeconfig_path = abspath(pathexpand(var.kube_config_path))
   wait_for_ready  = true
 
