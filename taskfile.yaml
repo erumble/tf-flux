@@ -8,6 +8,11 @@ tasks:
     cmds:
       - task --list-all
 
+  docs:
+    desk: Generate README.md
+    cmds:
+      - terraform-docs .
+
   terraform:
     internal: true
     vars:
