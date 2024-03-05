@@ -32,20 +32,28 @@ output:
         * [Colima](https://github.com/abiosoft/colima)
     * [Kind](https://kind.sigs.k8s.io/)
     * [Terraform](https://www.terraform.io/docs/index.html)
+    * (optional) [Taskfile](https://taskfile.dev/installation/)
 
     This Terraform project uses the Github provider. In order to authenticate to Github, you will need to do 1 of the following:
     * Install the [Github CLI](https://cli.github.com/) and authenticate through that
     * Create a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with the `repo` scope, and set the `GITHUB_TOKEN` env var to your PAT.
 
     ## Usage
-    Setup
+    ### Setup
+    This configuration will create a cluster named after the selected Terraform workspace.</br>
+    It will also create a branch in your github repository named `flux-${terraform.workspace}`,</br>
+    and configure this branch as the source of truth for the Flux instance in the cluster.</br>
+
+    If a directory `flux/clusters/${terraform.workspace} doesn't exist, an empty Flux configuration will be created.</br>
+
     ```
-    terraform apply
+    task ws -- select -or-create linkerd
+    task apply
     ```
 
-    Cleanup
+    ### Cleanup
     ```
-    terraform destroy
+    task destroy
     ```
 
     See the [Flux README](flux/README.md) for more information on how flux works, and how the directory structure is set up.
