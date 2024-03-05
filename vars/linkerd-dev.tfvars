@@ -1,4 +1,4 @@
-# Variables for the linkerd workspace
+# Variables for the linkerd-dev workspace
 control_plane_port_mappings = [
   {
     container_port = 32080
