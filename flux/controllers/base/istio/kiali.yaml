@@ -15,5 +15,5 @@ spec:
         namespace: istio-system
       interval: 48h
   dependsOn:
-    - name: istio-ingress
+    - name: istiod
       namespace: istio-system
