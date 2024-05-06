@@ -5,6 +5,9 @@ metadata:
   namespace: argocd
 spec:
   values:
+    configs:
+      params:
+        server.insecure: true
     server:
       ingress:
         enabled: true
