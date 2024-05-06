@@ -26,3 +26,33 @@ spec:
           name: controllers
           namespace: argocd
         spec: {}
+      - apiVersion: argoproj.io/v1alpha1
+        kind: Application
+        metadata:
+          name: cert-manager
+          namespace: argocd
+          labels:
+            app.kubernetes.io/managed-by: flamingo
+            flamingo/workload-name: cert-manager
+            flamingo/workload-type: "HelmRelease"
+            flamingo/source-type: "HelmRepository"
+            flamingo/destination-namespace: "cert-manager"
+            flamingo/cluster-name: "in-cluster"
+          annotations:
+            weave.gitops.flamingo/base-url: "http://localhost:9001"
+            weave.gitops.flamingo/cluster-name: "Default"
+        spec:
+          destination:
+            namespace: cert-manager
+            server: https://kubernetes.default.svc
+          project: controllers
+          source:
+            chart: cert-manager
+            repoURL: https://charts.jetstack.io
+            targetRevision: "*"
+            helm:
+              releaseName: cert-manager
+          syncPolicy:
+            syncOptions:
+            - ApplyOutOfSyncOnly=true
+            - FluxSubsystem=true
