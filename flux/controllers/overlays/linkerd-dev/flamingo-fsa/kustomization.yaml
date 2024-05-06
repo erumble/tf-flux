@@ -4,3 +4,9 @@ commonLabels:
   toolkit.fluxcd.io/tenant: sre-team
 resources:
   - ../../../base/flamingo-fsa
+patches:
+  - path: values.yaml
+    target:
+      kind: HelmRelease
+      name: flamingo
+      namespace: argocd

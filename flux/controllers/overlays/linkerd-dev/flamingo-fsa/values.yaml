@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: flamingo
+  namespace: argocd
+spec:
+  values:
+    server:
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hostname: argocd.localhost
+    extraObjects:
+      - apiVersion: argoproj.io/v1alpha1
+        kind: AppProject
+        metadata:
+          name: applications
+          namespace: argocd
+        spec: {}
+      - apiVersion: argoproj.io/v1alpha1
+        kind: AppProject
+        metadata:
+          name: controllers
+          namespace: argocd
+        spec: {}
