@@ -4,10 +4,9 @@ kind: Namespace
 metadata:
   name: cnpg-system
   labels:
-    config.linkerd.io/admission-webhooks: disabled
     toolkit.fluxcd.io/tenant: sre-team
   annotations:
-    linkerd.io/inject: disabled
+    linkerd.io/inject: enabled
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
