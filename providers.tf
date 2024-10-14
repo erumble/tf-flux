@@ -1,6 +1,15 @@
 # This file contains provider configuration
 # Provider version and source info can be found in versions.tf
 
+provider "docker" {
+  host = "unix:///var/run/docker.sock"
+
+  registry_auth {
+    address       = "http://localhost:${var.local_registry.port}"
+    auth_disabled = true
+  }
+}
+
 provider "flux" {
   kubernetes = {
     host                   = kind_cluster.this.endpoint
@@ -27,4 +36,11 @@ provider "github" {
 
 provider "kind" {}
 
-provider "tls" {}
+provider "kubernetes" {
+  host                   = kind_cluster.this.endpoint
+  client_certificate     = kind_cluster.this.client_certificate
+  client_key             = kind_cluster.this.client_key
+  cluster_ca_certificate = kind_cluster.this.cluster_ca_certificate
+}
+
+# provider "tls" {}

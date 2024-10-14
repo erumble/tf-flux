@@ -1,5 +1,10 @@
 terraform {
   required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0"
+    }
+
     flux = {
       source  = "fluxcd/flux"
       version = "~> 1.0"
@@ -15,9 +20,14 @@ terraform {
       version = "~> 0.2"
     }
 
-    tls = {
-      source  = "hashicorp/tls"
-      version = "~> 4.0"
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "~> 2.31"
     }
+
+    # tls = {
+    #   source  = "hashicorp/tls"
+    #   version = "~> 4.0"
+    # }
   }
 }

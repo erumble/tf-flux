@@ -89,3 +89,14 @@ variable "kube_config_path" {
   type        = string
   default     = "~/.kube/config"
 }
+
+variable "local_registry" {
+  description = "Configuration for using a local docker registry."
+
+  type = object({
+    enabled = optional(bool, false)
+    port    = optional(number, 5001)
+  })
+
+  default = {}
+}
