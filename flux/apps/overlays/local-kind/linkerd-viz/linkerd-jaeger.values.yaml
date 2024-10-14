@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: linkerd-jaeger
+  namespace: linkerd-jaeger
+spec:
+  chart:
+    spec:
+      version: 30.12.*

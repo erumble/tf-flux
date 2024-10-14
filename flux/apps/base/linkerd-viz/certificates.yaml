@@ -1,0 +1,63 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tap-injector
+  namespace: linkerd-viz
+spec:
+  issuerRef:
+    name: linkerd-webhook-trust-anchor
+    kind: ClusterIssuer
+  secretName: tap-injector-k8s-tls
+  duration: 2160h
+  renewBefore: 168h
+  commonName: tap-injector.linkerd-viz.svc
+  dnsNames:
+    - tap-injector.linkerd-viz.svc
+  isCA: false
+  privateKey:
+    algorithm: ECDSA
+  usages:
+    - server auth
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tap
+  namespace: linkerd-viz
+spec:
+  issuerRef:
+    name: linkerd-webhook-trust-anchor
+    kind: ClusterIssuer
+  secretName: tap-k8s-tls
+  duration: 2160h
+  renewBefore: 168h
+  commonName: tap.linkerd-viz.svc
+  dnsNames:
+    - tap.linkerd-viz.svc
+  isCA: false
+  privateKey:
+    algorithm: ECDSA
+  usages:
+    - server auth
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jaeger-injector
+  namespace: linkerd-jaeger
+spec:
+  issuerRef:
+    name: linkerd-webhook-trust-anchor
+    kind: ClusterIssuer
+  secretName: jaeger-injector-k8s-tls
+  duration: 2160h
+  renewBefore: 168h
+  commonName: jaeger-injector.linkerd-jaeger.svc
+  dnsNames:
+    - jaeger-injector.linkerd-jaeger.svc
+  isCA: false
+  privateKey:
+    algorithm: ECDSA
+  usages:
+    - server auth
