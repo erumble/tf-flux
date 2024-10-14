@@ -7,3 +7,5 @@ spec:
   chart:
     spec:
       version: 1.8.*
+  values:
+    enableHttpRoutes: false
