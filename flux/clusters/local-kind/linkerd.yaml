@@ -1,0 +1,19 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: linkerd
+  namespace: flux-system
+  labels:
+    toolkit.fluxcd.io/tenant: sre-team
+spec:
+  dependsOn:
+    - name: cert-manager
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./flux/apps/overlays/local-kind/linkerd
+  prune: true
+  wait: true

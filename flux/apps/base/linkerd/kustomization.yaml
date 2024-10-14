@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - certs-identity.yaml
+  - certs-webhooks.yaml
+  - issuer-selfsigned.yaml
+  - issuer-trust-anchor.yaml
+  - issuer-webhook.yaml
+  - linkerd-control-plane.yaml
+  - linkerd-crds.yaml
+  - namespaces.yaml
+  - repositories.yaml
