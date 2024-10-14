@@ -13,7 +13,7 @@ variable "flux_github_repository" {
 variable "flux_source_branch" {
   description = "Source branch to create flux branch from."
   type        = string
-  default     = "main"
+  default     = "dev"
 }
 
 # k8s cluster variables
@@ -23,10 +23,47 @@ variable "agent_count" {
   default     = 3
 }
 
-variable "kube_config_path" {
-  description = "Absolute path to your kube config file."
+variable "cluster_name" {
+  description = "The name of the Kind cluster to create."
   type        = string
-  default     = "~/.kube/config"
+  default     = "local-kind"
+}
+
+variable "control_plane_http_ingress_port_mapping" {
+  description = "Node port to expose on host for HTTP ingress."
+
+  type = object({
+    container_port = number
+    host_port      = number
+  })
+
+  default = {
+    container_port = 32080
+    host_port      = 80
+  }
+}
+
+variable "control_plane_https_ingress_port_mapping" {
+  description = "Node port to expose on host for HTTP ingress."
+
+  type = object({
+    container_port = number
+    host_port      = number
+  })
+
+  default = {
+    container_port = 32443
+    host_port      = 443
+  }
+}
+
+variable "control_plane_labels" {
+  description = "Labels to apply to the control plane node."
+  type        = map(string)
+
+  default = {
+    ingress-controller = "true"
+  }
 }
 
 variable "control_plane_port_mappings" {
@@ -45,4 +82,10 @@ variable "control_plane_port_mappings" {
     condition     = alltrue([for cp in var.control_plane_port_mappings : contains(["TCP", "UDP", "SCTP", null], cp.protocol)])
     error_message = "Protocol must be one of [\"TCP\", \"UDP\", \"SCTP\"]."
   }
+}
+
+variable "kube_config_path" {
+  description = "Absolute path to your kube config file."
+  type        = string
+  default     = "~/.kube/config"
 }

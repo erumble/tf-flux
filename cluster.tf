@@ -1,5 +1,5 @@
 resource "kind_cluster" "this" {
-  name            = terraform.workspace
+  name            = var.cluster_name
   kubeconfig_path = abspath(pathexpand(var.kube_config_path))
   wait_for_ready  = true
 
@@ -7,11 +7,28 @@ resource "kind_cluster" "this" {
     kind        = "Cluster"
     api_version = "kind.x-k8s.io/v1alpha4"
 
+    containerd_config_patches = var.local_registry.enabled ? [
+      <<-TOML
+      [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:${var.local_registry.port}"]
+        endpoint = ["http://${var.cluster_name}-registry:5000"]
+      TOML
+    ] : []
+
     node {
       role = "control-plane"
 
-      labels = {
+      labels = merge({
         ingress-controller = "true"
+      }, var.control_plane_labels)
+
+      extra_port_mappings {
+        container_port = var.control_plane_http_ingress_port_mapping.container_port
+        host_port      = var.control_plane_http_ingress_port_mapping.host_port
+      }
+
+      extra_port_mappings {
+        container_port = var.control_plane_https_ingress_port_mapping.container_port
+        host_port      = var.control_plane_https_ingress_port_mapping.host_port
       }
 
       dynamic "extra_port_mappings" {
