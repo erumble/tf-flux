@@ -8,5 +8,5 @@ resources:
   - issuer-webhook.yaml
   - linkerd-control-plane.yaml
   - linkerd-crds.yaml
-  - namespaces.yaml
-  - repositories.yaml
+  - namespace.yaml
+  - repository.yaml
